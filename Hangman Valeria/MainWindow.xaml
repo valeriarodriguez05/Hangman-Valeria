@@ -14,14 +14,14 @@
             <RowDefinition Height="3.5*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <!-----------------------------Zone Game------------------------------------>
+        <!-- **************************** Zone Game *************************-->
         <Grid Grid.Row="1">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Content="Hangman Game" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4b2e83"/>
+        </Grid>
+        <Label Grid.Row="0" Content="Hangman Game" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4b2e83"/>
 
         <Label Grid.Row="4" Content="Valeria Rodriguez, V1" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4b2e83"/>
     </Grid>
