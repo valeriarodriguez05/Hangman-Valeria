@@ -20,9 +20,48 @@ namespace Hangman_Valeria
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        // Variables globales
+        string mot ="";
+        int vies= 5;
+        char letter="";
+        string[] List_mot = { "ordinateur", "souris", "clavier", "ecran", "telephone", "tablette", "internet", "reseau", "logiciel", "hardware" };
+         Random rand = new Random();
+
+
+
+        //{int N =Rand.next(List-mot.length);
+        //    mot = List-mot[N];
+        //}
+
         public MainWindow()
         {
             InitializeComponent();
+            startGame();
         }
+
+
+        public void startGame()
+        {
+            int N = rand.Next(List_mot.Length);
+            mot = List_mot[N];
+            vies = 5;
+
+            // Afficher des * pour chaque lettre du mot
+
+            for (int i = 0; i < mot.Length; i++)
+            {
+                TB_Display.Text += "*";
+            }
+        }
+
+        private void Letter_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (sender) as Button;
+            letter = btn.Content;
+            char letter= clicked.content.ToString();
+
+        }
+   
     }
 }

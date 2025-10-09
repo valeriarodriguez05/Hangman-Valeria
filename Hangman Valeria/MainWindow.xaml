@@ -5,26 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman_Valeria"
         mc:Ignorable="d"
-        Title="MainWindow" Background="#f2c57c" Height="900" Width="700">
-    <Grid>
+        Title="MainWindow" Background="#f2c57c" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="BtnLetterStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="FontWeight" Value="Thin"/>
+            <Setter Property="FontFamily" Value="Seagull"/>
+            <Setter Property="Background" Value="#E0DDCF"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="8*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="3.5*"/>
-            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <!-- **************************** Zone Game *************************-->
-        <Grid Grid.Row="1">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
+        <!-- *************************** Zone Titre **********************************************-->
+        <Grid Grid.Row="0">
+            <Label x:Name="lblWord" Content="HangMan" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <Label Grid.Row="0" Content="Hangman Game" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4b2e83"/>
 
-        <Label Grid.Row="4" Content="Valeria Rodriguez, V1" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4b2e83"/>
+        <!-- *************************** Zone Game **********************************************-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4.5*"/>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- *************************** Zone Pendues **********************************************-->
+            <Grid Grid.Column="0">
+                <TextBox x:Name="TB_Display"  FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextChanged="TB_Display_TextChanged"/>
+            </Grid>
+            <!-- *************************** Zone Lettres **********************************************-->
+            <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Content="A" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="B" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="C" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="D" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="E" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="F" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="G" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="H" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="I" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="J" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="K" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="L" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="M" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="N" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="O" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="P" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="Q" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="R" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="S" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="T" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="U" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="V" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="W" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="X" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="Y" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+                <Button Content="Z" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
+            </WrapPanel>
+
+            <!-- *************************** Zone Vies **********************************************-->
+            <Grid Grid.Column="2">
+            </Grid>
+        </Grid>
+
+        <!-- *************************** Zone Footer **********************************************-->
+        <Grid Grid.Row="2">
+            <Label x:Name="Lb_Footer" Content="Valeria" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Border BorderBrush="white" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+        </Grid>
     </Grid>
-    
-            
 </Window>
