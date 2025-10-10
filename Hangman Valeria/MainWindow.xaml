@@ -39,7 +39,12 @@
 
             <!-- *************************** Zone Pendues **********************************************-->
             <Grid Grid.Column="0">
-                <TextBox x:Name="TB_Display"  FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextChanged="TB_Display_TextChanged"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="8*" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="TB_Display" Grid.Row="0" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <Image x:Name="Img_Hangman" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
             </Grid>
             <!-- *************************** Zone Lettres **********************************************-->
             <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -73,10 +78,17 @@
 
             <!-- *************************** Zone Vies **********************************************-->
             <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="TB_vie" Grid.Row="0" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                <TextBlock x:Name="TB_Score" Grid.Row="1" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
             </Grid>
         </Grid>
 
-        <!-- *************************** Zone Footer **********************************************-->
+        <!-- *************************** Zone Prénom **********************************************-->
         <Grid Grid.Row="2">
             <Label x:Name="Lb_Footer" Content="Valeria" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Border BorderBrush="white" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>

@@ -24,9 +24,10 @@ namespace Hangman_Valeria
         // Variables globales
         string mot ="";
         int vies= 5;
-        char letter="";
+        string letter="";
         string[] List_mot = { "ordinateur", "souris", "clavier", "ecran", "telephone", "tablette", "internet", "reseau", "logiciel", "hardware" };
-         Random rand = new Random();
+        string newmot = "";
+        Random rand = new Random();
 
 
 
@@ -53,15 +54,39 @@ namespace Hangman_Valeria
             {
                 TB_Display.Text += "*";
             }
+             TB_vie.Text = "Vies : " + vies;
         }
 
         private void Letter_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (sender) as Button;
-            letter = btn.Content;
-            char letter= clicked.content.ToString();
+            string letter = btn.Content.ToString();
+            btn.IsEnabled = false;
+
+            GuessLetter(letter.ToLower());
 
         }
-   
+
+
+        public void GuessLetter( string Letter)
+        {
+
+            if (mot.Contains(letter))
+            {
+                // 🔍 Vérification lettre dans le mot
+                for (int i = 0; i < mot.Length; i++)
+                {
+                    newmot = mot.Remove(i, 1).Insert(i, mot[i].ToString());
+                    TB_Display.Text = newmot;
+                }
+            }
+            else
+            {
+                               vies--;
+                TB_vie.Text = "Vies : " + vies;
+            }
+
+         
+        }
     }
 }
