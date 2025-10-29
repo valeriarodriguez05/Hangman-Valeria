@@ -37,6 +37,7 @@ namespace Hangman_Valeria
         public MainWindow()
         {
             InitializeComponent();
+
             startGame();
         }
 
@@ -78,7 +79,7 @@ namespace Hangman_Valeria
             // Parcours chaque lettre du mot à deviner
             for (int i = 0; i < mot.Length; i++)
             {
-                if (mot[i] == letter[0])
+                if (mot[i].ToString().Contains(Letter))
                 {
                     // Remplace * par la lettre trouvée
                     affichage[i] = letter[0];
@@ -96,6 +97,23 @@ namespace Hangman_Valeria
                 TB_vie.Text = "Vies : " + vies;
             }
 
+        }
+
+        //  Vérifie si le joueur a gagné ou perdu
+        public void CheckGameStatus()
+        {
+            if (vies <= 0)
+            {
+                // Plus de vies → partie perdue
+                MessageBox.Show(" Game Over ! Le mot était : " + mot);
+                startGame();
+            }
+            else if (!new string(affichage).Contains('*'))
+            {
+                // Plus aucun * → victoire !
+                MessageBox.Show(" You Win! Tu as trouvé le mot !");
+                startGame();
+            }
         }
     }
 }
