@@ -5,20 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hangman_Valeria"
         mc:Ignorable="d"
-        Title="MainWindow" Background="#f2c57c" Height="450" Width="800">
+        Title="MainWindow" Background="White" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="BtnLetterStyle" TargetType="Button">
-            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="Width" Value="40"/>
             <Setter Property="FontWeight" Value="Thin"/>
-            <Setter Property="FontFamily" Value="Seagull"/>
-            <Setter Property="Background" Value="#E0DDCF"/>
+            <Setter Property="FontFamily" Value="Caladea"/>
+            <Setter Property="Background" Value="White"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="LightSkyBlue"/>
+
         </Style>
     </Window.Resources>
 
     <Grid Margin="10">
+        <Grid.Background>
+            <ImageBrush 
+            ImageSource="assets/background/fond.jpg" 
+            Stretch="UniformToFill"
+            AlignmentX="Center"
+            AlignmentY="Center"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="8*"/>
@@ -26,7 +36,7 @@
         </Grid.RowDefinitions>
         <!-- *************************** Zone Titre **********************************************-->
         <Grid Grid.Row="0">
-            <Label x:Name="lblWord" Content="HangMan" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label x:Name="lblWord" Content="HangMan" FontFamily="Caladea" FontSize="27" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
         <!-- *************************** Zone Game **********************************************-->
@@ -43,11 +53,14 @@
                     <RowDefinition Height="2*" />
                     <RowDefinition Height="8*" />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="TB_Display" Grid.Row="0" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <Grid Grid.Row="1">
+                    <Image x:Name="ImagePendu" Source="assets\pendu\pendu1.png"></Image>
+                </Grid>
+                    <TextBlock x:Name="TB_Display" Grid.Row="0" FontFamily="Caladea" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <Image x:Name="Img_Hangman" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
             </Grid>
             <!-- *************************** Zone Lettres **********************************************-->
-            <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Name="Grd_Keypad">
                 <Button Content="A" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
                 <Button Content="B" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
                 <Button Content="C" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
@@ -78,19 +91,13 @@
 
             <!-- *************************** Zone Vies **********************************************-->
             <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="TB_vie" Grid.Row="0" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-                <TextBlock x:Name="TB_Score" Grid.Row="1" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                <TextBlock x:Name="TB_vie" Grid.Row="0" FontSize="24" FontFamily="Caladea" HorizontalAlignment="Center" VerticalAlignment="Top" />
             </Grid>
         </Grid>
 
         <!-- *************************** Zone Prénom **********************************************-->
         <Grid Grid.Row="2">
-            <Label x:Name="Lb_Footer" Content="Valeria" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label x:Name="Lb_Footer" Content="Valeria" FontFamily="Caladea" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Border BorderBrush="white" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
         </Grid>
     </Grid>

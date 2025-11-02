@@ -23,10 +23,11 @@ namespace Hangman_Valeria
 
         // Variables globales
         string mot ="";
-        int vies= 5;
+        int vies= 6;
         string letter="";
-        string[] List_mot = { "ordinateur", "souris", "clavier", "ecran", "telephone", "tablette", "internet", "reseau", "logiciel", "hardware" };
+        string[] List_mot = { "ordinateur","souris",   "clavier",  "ecran",  "telephone",   "tablette",  "internet",    "reseau",    "logiciel",   "hardware",    "processeur",    "memoire",   "disque",    "serveur",    "imprimante",    "usb",    "wifi",    "bluetooth",    "navigateur","fichier",   "dossier",   "programme",   "application",   "systeme",   "donnees",    "base",   "cloud",    "code",    "developpeur",    "bug",    "script",    "interface",    "algorithme",    "intelligence",    "robot",    "virus",    "parefeu",    "cybersecurite",    "reseaux",    "serveur",    "logiciel", "pixel"};
         string newmot = "";
+        string MotIntern;
         Random rand = new Random();
         char[] affichage;
 
@@ -44,10 +45,13 @@ namespace Hangman_Valeria
 
         public void startGame()
         {
+            mot="";
+            MotIntern = "";
             int N = rand.Next(List_mot.Length);
             mot = List_mot[N];
-            vies = 5;
+            vies = 6;
 
+            ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\pendu1.png", UriKind.Relative));
             // Initialiser le tableau affichage avec des *
             affichage = new char[mot.Length];
             for (int i = 0; i < mot.Length; i++)
@@ -57,6 +61,17 @@ namespace Hangman_Valeria
 
             TB_Display.Text = new string(affichage);
             TB_vie.Text = "Vies : " + vies;
+            // Réactivation des boutons
+            ActivateBtn();
+        }
+
+        public void ActivateBtn()
+        {
+            foreach (var elm in Grd_Keypad.Children)
+            {
+                if (elm is Button btn)
+                    btn.IsEnabled = true;
+            }
         }
 
         private void Letter_Click(object sender, RoutedEventArgs e)
@@ -66,54 +81,71 @@ namespace Hangman_Valeria
             string letter = btn.Content.ToString();
             // Désactivation du bouton après clic
             btn.IsEnabled = false;
-            // Vérifie si la lettre est dans le mot
-            GuessLetter(letter.ToLower());
-
-        }
-
-        //  Vérification d’une lettre dans le mot
-        public void GuessLetter( string Letter)
-        {
             bool correct = false;
+
+            // Initialiser MotIntern si nécessaire
+            if (string.IsNullOrEmpty(MotIntern))
+                MotIntern = new string(affichage);
 
             // Parcours chaque lettre du mot à deviner
             for (int i = 0; i < mot.Length; i++)
             {
-                if (mot[i].ToString().Contains(Letter))
+                if (mot[i].ToString() == letter.ToLower())
                 {
                     // Remplace * par la lettre trouvée
-                    affichage[i] = letter[0];
+                    MotIntern = MotIntern.Remove(i, 1).Insert(i, letter.ToLower());
                     correct = true;
                 }
             }
 
             // Affiche le nouveau mot masqué mis à jour
-            TB_Display.Text = new string(affichage);
+            TB_Display.Text = MotIntern;
 
-            // Si la lettre est absente → perdre une vie
-            if (!correct)
+            if (MotIntern == mot)
             {
-                vies--;
-                TB_vie.Text = "Vies : " + vies;
+                MessageBox.Show(" Vous avez gagné !");
+                startGame();
+            }
+            else
+            {
+                if (!correct) // Si la lettre est absente → perdre une vie
+                {
+                    vies--;
+                    TB_vie.Text = "Vies : " + vies;
+                    if (vies == 0)
+                    {
+                        TB_vie.Text = "Vies : " + vies;
+                        ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps6.png", UriKind.Relative));
+                        MessageBox.Show(" Game Over ! Le mot était : " + mot);
+                        startGame();
+                    }
+                    if (vies == 1)
+                    {
+                        ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps5.png", UriKind.Relative));
+                    }
+                    if (vies == 2)
+                    {
+                        ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps4.png", UriKind.Relative));
+                    }
+                    if (vies == 3)
+                    {
+                        ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps3.png", UriKind.Relative));
+                    }
+                    if (vies == 4)
+                    {
+                        ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps2.png", UriKind.Relative));
+                    }
+                    if (vies == 5)
+                    {
+                        ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps1.png", UriKind.Relative));
+                    }
+
+                }
             }
 
         }
 
-        //  Vérifie si le joueur a gagné ou perdu
-        public void CheckGameStatus()
-        {
-            if (vies <= 0)
-            {
-                // Plus de vies → partie perdue
-                MessageBox.Show(" Game Over ! Le mot était : " + mot);
-                startGame();
-            }
-            else if (!new string(affichage).Contains('*'))
-            {
-                // Plus aucun * → victoire !
-                MessageBox.Show(" You Win! Tu as trouvé le mot !");
-                startGame();
-            }
-        }
+        //  Vérification d’une lettre dans le mot
+        
     }
 }
