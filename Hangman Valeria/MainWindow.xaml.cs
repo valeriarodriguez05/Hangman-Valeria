@@ -22,13 +22,12 @@ namespace Hangman_Valeria
     {
 
         // Variables globales
-        string mot ="";
-        int vies= 6;
-        string letter="";
+        string mot =""; //  Mot à deviner
+        int vies= 6;  // Nombre de vies
+        string letter="";  // Lettre choisie
         string[] List_mot = { "ordinateur","souris",   "clavier",  "ecran",  "telephone",   "tablette",  "internet",    "reseau",    "logiciel",   "hardware",    "processeur",    "memoire",   "disque",    "serveur",    "imprimante",    "usb",    "wifi",    "bluetooth",    "navigateur","fichier",   "dossier",   "programme",   "application",   "systeme",   "donnees",    "base",   "cloud",    "code",    "developpeur",    "bug",    "script",    "interface",    "algorithme",    "intelligence",    "robot",    "virus",    "parefeu",    "cybersecurite",    "reseaux",    "serveur",    "logiciel", "pixel"};
-        string newmot = "";
-        string MotIntern;
-        Random rand = new Random();
+        string newmot; // Mot intermédiaire avec lettres trouvées
+        Random rand = new Random();  // Générateur aléatoire
         char[] affichage;
 
         //{int N =Rand.next(List-mot.length);
@@ -39,26 +38,26 @@ namespace Hangman_Valeria
         {
             InitializeComponent();
 
-            startGame();
+            startGame(); // Démarre une nouvelle partie 
         }
 
 
-        public void startGame()
+        public void startGame() // 🚀 Fonction pour initialiser une nouvelle partie
         {
             mot="";
-            MotIntern = "";
-            int N = rand.Next(List_mot.Length);
+            newmot = "";
+            int N = rand.Next(List_mot.Length); // 🎲 Choisit un mot au hasard dans la liste
             mot = List_mot[N];
             vies = 6;
 
-            ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\pendu1.png", UriKind.Relative));
+            ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\pendu1.png", UriKind.Relative)); //  Affiche la première image du pendu
             // Initialiser le tableau affichage avec des *
             affichage = new char[mot.Length];
             for (int i = 0; i < mot.Length; i++)
             {
                 affichage[i] = '*';
             }
-
+            // Affiche le mot masqué et les vies à l’écran
             TB_Display.Text = new string(affichage);
             TB_vie.Text = "Vies : " + vies;
             // Réactivation des boutons
@@ -70,22 +69,26 @@ namespace Hangman_Valeria
             foreach (var elm in Grd_Keypad.Children)
             {
                 if (elm is Button btn)
+                {
+                    // Réactive le bouton et restaure sa couleur par défaut
                     btn.IsEnabled = true;
+                    btn.IsHitTestVisible = true;
+                    btn.Background = new SolidColorBrush(Colors.White);
+                }
             }
         }
 
-        private void Letter_Click(object sender, RoutedEventArgs e)
+        private void Letter_Click(object sender, RoutedEventArgs e) //  Gestion du clic sur une lettre
         {
             Button btn = (sender) as Button;
             // Récupération du texte de la lettre sur le bouton
             string letter = btn.Content.ToString();
-            // Désactivation du bouton après clic
-            btn.IsEnabled = false;
             bool correct = false;
+         
 
             // Initialiser MotIntern si nécessaire
-            if (string.IsNullOrEmpty(MotIntern))
-                MotIntern = new string(affichage);
+            if (string.IsNullOrEmpty(newmot))
+                newmot = new string(affichage);
 
             // Parcours chaque lettre du mot à deviner
             for (int i = 0; i < mot.Length; i++)
@@ -93,15 +96,18 @@ namespace Hangman_Valeria
                 if (mot[i].ToString() == letter.ToLower())
                 {
                     // Remplace * par la lettre trouvée
-                    MotIntern = MotIntern.Remove(i, 1).Insert(i, letter.ToLower());
+                    newmot = newmot.Remove(i, 1).Insert(i, letter.ToLower());
                     correct = true;
+                    btn.Background = new SolidColorBrush(Colors.LightGreen);
+                    btn.IsHitTestVisible = false;   // Empêcher le bouton d’être recliqué sans le griser
+
                 }
             }
 
             // Affiche le nouveau mot masqué mis à jour
-            TB_Display.Text = MotIntern;
+            TB_Display.Text = newmot;
 
-            if (MotIntern == mot)
+            if (newmot == mot) // Vérifie si le joueur a trouvé tout le mot
             {
                 MessageBox.Show(" Vous avez gagné !");
                 startGame();
@@ -110,8 +116,12 @@ namespace Hangman_Valeria
             {
                 if (!correct) // Si la lettre est absente → perdre une vie
                 {
+                    btn.Background = new SolidColorBrush(Colors.LightCoral);
+                    // Empêcher le bouton d’être recliqué sans le griser
+                    btn.IsHitTestVisible = false;
                     vies--;
                     TB_vie.Text = "Vies : " + vies;
+                    //  Met à jour l’image du pendu selon le nombre de vies restantes
                     if (vies == 0)
                     {
                         TB_vie.Text = "Vies : " + vies;
@@ -144,8 +154,6 @@ namespace Hangman_Valeria
             }
 
         }
-
-        //  Vérification d’une lettre dans le mot
         
     }
 }
