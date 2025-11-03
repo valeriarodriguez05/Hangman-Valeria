@@ -62,7 +62,7 @@
                 <Image x:Name="Img_Hangman" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
             </Grid>
             <!-- *************************** Zone Lettres **********************************************-->
-            <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Name="Grd_Keypad">
+            <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Name="Grd_Keypad">
                 <Button Content="A" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
                 <Button Content="B" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
                 <Button Content="C" Click="Letter_Click" Style="{StaticResource BtnLetterStyle}"/>
