@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media;
+using System.Threading;
+
 
 namespace Hangman_Valeria
 {
@@ -51,6 +54,7 @@ namespace Hangman_Valeria
             vies = 6;
 
             ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\pendu1.png", UriKind.Relative)); //  Affiche la première image du pendu
+            ImageCoeurs.Source = new BitmapImage(new Uri("assets\\vies\\coeurs.jpg", UriKind.Relative)); // Affiche l’image initiale des vies
             // Initialiser le tableau affichage avec des *
             affichage = new char[mot.Length];
             for (int i = 0; i < mot.Length; i++)
@@ -78,13 +82,19 @@ namespace Hangman_Valeria
             }
         }
 
+       
+
         private void Letter_Click(object sender, RoutedEventArgs e) //  Gestion du clic sur une lettre
         {
             Button btn = (sender) as Button;
             // Récupération du texte de la lettre sur le bouton
             string letter = btn.Content.ToString();
             bool correct = false;
-         
+
+            MediaPlayer clickMedia = new MediaPlayer(); // Renommé pour éviter le conflit
+            var uri = new Uri(@"assets/sounds/click.mp3", UriKind.Relative);
+            clickMedia.Open(uri);
+            clickMedia.Play();
 
             // Initialiser MotIntern si nécessaire
             if (string.IsNullOrEmpty(newmot))
@@ -100,7 +110,6 @@ namespace Hangman_Valeria
                     correct = true;
                     btn.Background = new SolidColorBrush(Colors.LightGreen);
                     btn.IsHitTestVisible = false;   // Empêcher le bouton d’être recliqué sans le griser
-
                 }
             }
 
@@ -109,6 +118,10 @@ namespace Hangman_Valeria
 
             if (newmot == mot) // Vérifie si le joueur a trouvé tout le mot
             {
+                MediaPlayer winMedia = new MediaPlayer(); // Renommé pour éviter le conflit
+                var winUri = new Uri(@"assets/sounds/son_gagne.mp3", UriKind.Relative);
+                winMedia.Open(winUri);
+                winMedia.Play();
                 MessageBox.Show(" Vous avez gagné !");
                 startGame();
             }
@@ -117,14 +130,18 @@ namespace Hangman_Valeria
                 if (!correct) // Si la lettre est absente → perdre une vie
                 {
                     btn.Background = new SolidColorBrush(Colors.LightCoral);
-                    // Empêcher le bouton d’être recliqué sans le griser
                     btn.IsHitTestVisible = false;
                     vies--;
                     TB_vie.Text = "Vies : " + vies;
+
                     //  Met à jour l’image du pendu selon le nombre de vies restantes
                     if (vies == 0)
                     {
-                        TB_vie.Text = "Vies : " + vies;
+                        MediaPlayer gameoverMedia = new MediaPlayer(); // Renommé pour éviter le conflit
+                        var goUri = new Uri(@"assets/sounds/son_perdu.mp3", UriKind.Relative);
+                        gameoverMedia.Open(goUri);
+                        gameoverMedia.Play();
+                        TB_vie.Text = "Vies: 0";
                         ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps6.png", UriKind.Relative));
                         MessageBox.Show(" Game Over ! Le mot était : " + mot);
                         startGame();
@@ -132,28 +149,30 @@ namespace Hangman_Valeria
                     if (vies == 1)
                     {
                         ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps5.png", UriKind.Relative));
+                        ImageCoeurs.Source = new BitmapImage(new Uri("assets\\vies\\coeurs5.jpg", UriKind.Relative));
                     }
                     if (vies == 2)
                     {
                         ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps4.png", UriKind.Relative));
+                        ImageCoeurs.Source = new BitmapImage(new Uri("assets\\vies\\coeurs4.jpg", UriKind.Relative));
                     }
                     if (vies == 3)
                     {
                         ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps3.png", UriKind.Relative));
+                        ImageCoeurs.Source = new BitmapImage(new Uri("assets\\vies\\coeurs3.jpg", UriKind.Relative));
                     }
                     if (vies == 4)
                     {
                         ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps2.png", UriKind.Relative));
+                        ImageCoeurs.Source = new BitmapImage(new Uri("assets\\vies\\coeurs2.jpg", UriKind.Relative));
                     }
                     if (vies == 5)
                     {
                         ImagePendu.Source = new BitmapImage(new Uri("assets\\pendu\\corps1.png", UriKind.Relative));
+                        ImageCoeurs.Source = new BitmapImage(new Uri("assets\\vies\\coeurs1.jpg", UriKind.Relative));
                     }
-
                 }
             }
-
         }
-        
     }
 }

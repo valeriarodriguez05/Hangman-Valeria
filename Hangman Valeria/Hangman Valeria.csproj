@@ -108,5 +108,24 @@
     <Resource Include="assets\pendu\corps5.png" />
     <Resource Include="assets\pendu\corps6.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\vies\coeurs.jpg" />
+    <Resource Include="assets\vies\coeurs1.jpg" />
+    <Resource Include="assets\vies\coeurs2.jpg" />
+    <Resource Include="assets\vies\coeurs3.jpg" />
+    <Resource Include="assets\vies\coeurs4.jpg" />
+    <Resource Include="assets\vies\coeurs5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\sounds\click.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\sounds\son_gagne.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\sounds\son_perdu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
