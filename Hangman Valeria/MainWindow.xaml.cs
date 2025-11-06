@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,8 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Media;
-using System.Threading;
+using System.Windows.Threading;
 
 
 namespace Hangman_Valeria
@@ -32,6 +32,9 @@ namespace Hangman_Valeria
         string newmot; // Mot intermédiaire avec lettres trouvées
         Random rand = new Random();  // Générateur aléatoire
         char[] affichage;
+        DispatcherTimer timer;
+        int tempsRestant = 180; // 3 minutes = 180 secondes
+
 
         //{int N =Rand.next(List-mot.length);
         //    mot = List-mot[N];
@@ -66,6 +69,17 @@ namespace Hangman_Valeria
             TB_vie.Text = "Vies : " + vies;
             // Réactivation des boutons
             ActivateBtn();
+
+            // 🕒 Initialisation du timer
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+            TB_time.Text = "03:00"; // affichage initial
+            tempsRestant = 180;
+            TB_time.Text = "03:00";
+
         }
 
         public void ActivateBtn()
@@ -81,6 +95,8 @@ namespace Hangman_Valeria
                 }
             }
         }
+
+        
 
        
 
@@ -172,6 +188,24 @@ namespace Hangman_Valeria
                         ImageCoeurs.Source = new BitmapImage(new Uri("assets\\vies\\coeurs1.jpg", UriKind.Relative));
                     }
                 }
+            }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            tempsRestant--;
+
+            // Met à jour l'affichage du temps restant
+            int minutes = tempsRestant / 60;
+            int secondes = tempsRestant % 60;
+            TB_time.Text = $"{minutes:D2}:{secondes:D2}";
+
+            // Vérifie si le temps est écoulé
+            if (tempsRestant <= 0)
+            {
+                timer.Stop();
+                MessageBox.Show("Temps écoulé ! Le mot était : " + mot);
+                startGame();
             }
         }
     }
