@@ -1,5 +1,6 @@
 🎮 Hangman WPF — Jeu du Pendu en C#
 Un petit jeu du Pendu développé en C# avec WPF, incluant :
+
 ✔️ Interface graphique
 ✔️ Système de vies et visuels du pendu
 ✔️ Sons (clic, victoire, défaite)
